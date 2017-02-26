@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
 import java.util.List;
 
 /**
@@ -15,19 +14,14 @@ import java.util.List;
 
 public class ImageAdapter extends BaseAdapter
 {
-
     private Context context;
     private List<Bitmap> list;
-
-
-
 
     public ImageAdapter(Context context, List<Bitmap> list)
     {
         this.context = context;
         this.list = list;
     }
-
 
     public int getCount()
     {
@@ -44,12 +38,30 @@ public class ImageAdapter extends BaseAdapter
         return position;
     }
 
-    public View getView(int position, View view, ViewGroup viewGroup)
+    public View getView(int position, View convertView, ViewGroup viewGroup)
     {
         Bitmap bitmap = list.get(position);
-        view = LayoutInflater.from(context).inflate(R.layout.gridview_item, null);
-        SquareImageView squareImage = (SquareImageView) view.findViewById(R.id.squareImage);
-        squareImage.setImageBitmap(bitmap);
+        View view;
+        ViewHolder viewHolder;
+        if(convertView == null)
+        {
+            view = LayoutInflater.from(context).inflate(R.layout.gridview_item, null);
+            viewHolder = new ViewHolder();
+            viewHolder.squareImage = (SquareImageView) view.findViewById(R.id.squareImage);
+            //将ViewHolder存储在view中
+            view.setTag(viewHolder);
+        }
+        else
+        {
+            view = convertView;
+            viewHolder = (ViewHolder) view.getTag();
+        }
+        viewHolder.squareImage.setImageBitmap(bitmap);
         return view;
+    }
+
+    class ViewHolder
+    {
+        SquareImageView squareImage;
     }
 }

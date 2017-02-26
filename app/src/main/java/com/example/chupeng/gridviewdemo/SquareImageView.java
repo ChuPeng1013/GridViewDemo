@@ -28,6 +28,7 @@ public class SquareImageView extends ImageView
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
+        //将宽和高设置为一样的
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }
 }
